@@ -8,7 +8,7 @@ from .settings import *
 DEBUG = False
 
 # Update this with your PythonAnywhere username
-ALLOWED_HOSTS = ['yourusername.pythonanywhere.com', 'www.yourusername.pythonanywhere.com']
+ALLOWED_HOSTS = ['ayushraj1111.pythonanywhere.com', 'www.ayushraj1111.pythonanywhere.com']
 
 # Database for production (PythonAnywhere uses MySQL)
 # You can also stick with SQLite for simple projects
@@ -21,11 +21,11 @@ DATABASES = {
 
 # Static files settings for production
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/yourusername/yourproject/staticfiles'
+STATIC_ROOT = '/home/ayushraj1111/IIT-BHU-MERCHANDISE/ec/staticfiles'
 
 # Media files settings
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/yourusername/yourproject/media'
+MEDIA_ROOT = '/home/ayushraj1111/IIT-BHU-MERCHANDISE/ec/media'
 
 # Security settings for production
 SECURE_BROWSER_XSS_FILTER = True

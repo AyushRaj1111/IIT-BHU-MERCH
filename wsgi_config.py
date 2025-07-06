@@ -6,7 +6,7 @@ import os
 import sys
 
 # Add your project directory to sys.path
-path = '/home/yourusername/IIT-BHU-MERCHANDISE/ec'
+path = '/home/ayushraj1111/IIT-BHU-MERCHANDISE/ec'
 if path not in sys.path:
     sys.path.insert(0, path)
 
