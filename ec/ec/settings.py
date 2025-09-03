@@ -11,6 +11,15 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+# Load environment variables from a local .env file if present (development convenience)
+try:
+    from dotenv import load_dotenv  # type: ignore
+    load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+except Exception:
+    # Safe to ignore if python-dotenv isn't installed in production
+    pass
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +29,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-hguv9*+03^vr_y5ac(6jwy04lbv#7d0n#!nqcyd68y1cfon)7g"
+# Falls back to a clearly unsafe key so accidental exposure is obvious; override via env.
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "INSECURE_DEV_KEY_CHANGE_ME")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG should be 'True' or 'False' (string) in the environment.
+DEBUG = os.getenv("DJANGO_DEBUG", "True").lower() == "true"
 
-ALLOWED_HOSTS = ['jackedcoder.pythonanywhere.com', 'www.jackedcoder.pythonanywhere.com']
+# Comma separated hostnames, e.g. "example.com,www.example.com"
+_hosts = os.getenv("DJANGO_ALLOWED_HOSTS", "")
+if _hosts.strip():
+    ALLOWED_HOSTS = [h.strip() for h in _hosts.split(",") if h.strip()]
+else:
+    # Sensible defaults for local dev
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -123,5 +139,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-RAZOR_KEY_ID = "rzp_test_LxRqAytA5m1RfA"
-RAZOR_KEY_SECRET = "5IXsKXQ4NR89wHUZNs3GNVur"
+RAZOR_KEY_ID = os.getenv("RAZOR_KEY_ID", "")
+RAZOR_KEY_SECRET = os.getenv("RAZOR_KEY_SECRET", "")
+
+# Basic runtime validation (only when not running inside collectstatic / migrations on CI)
+if not DEBUG:
+    if SECRET_KEY.startswith("INSECURE_DEV_KEY"):
+        raise RuntimeError("DJANGO_SECRET_KEY environment variable must be set for production.")

@@ -40,6 +40,8 @@ X_FRAME_OPTIONS = 'DENY'
 # EMAIL_HOST_USER = 'your-email@gmail.com'
 # EMAIL_HOST_PASSWORD = 'your-app-password'
 
-# Razorpay settings (keep these secure)
-RAZOR_KEY_ID = os.environ.get('RAZOR_KEY_ID', 'rzp_test_LxRqAytA5m1RfA')
-RAZOR_KEY_SECRET = os.environ.get('RAZOR_KEY_SECRET', '5IXsKXQ4NR89wHUZNs3GNVur')
+# Razorpay settings (must be provided via environment in production)
+RAZOR_KEY_ID = os.environ.get('RAZOR_KEY_ID', '')
+RAZOR_KEY_SECRET = os.environ.get('RAZOR_KEY_SECRET', '')
+if not RAZOR_KEY_ID or not RAZOR_KEY_SECRET:
+    raise RuntimeError('RAZOR_KEY_ID and RAZOR_KEY_SECRET must be set in environment for production.')
