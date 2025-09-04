@@ -21,7 +21,7 @@ DATABASES = {
 
 # Static files settings for production
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/JackedCoder/IIT-BHU-MERCHANDISE/ec/staticfiles'
+STATIC_ROOT = "/home/JackedCoder/IIT-BHU-MERCH/ec/app/static"
 
 # Media files settings
 MEDIA_URL = '/media/'
