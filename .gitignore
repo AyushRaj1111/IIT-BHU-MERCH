@@ -32,8 +32,8 @@ db.sqlite3-*
 # Django runtime logs
 *.log
 
-# Collected static files (use collectstatic in deploy)
-staticfiles/
+# # Collected static files (use collectstatic in deploy)
+# staticfiles/
 
 # Test / coverage artifacts (if tests are added later)
 .pytest_cache/
